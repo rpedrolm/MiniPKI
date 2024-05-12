@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<section id="hero-static" class="hero-static d-flex align-items-center">
+    <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative aos-init aos-animate" data-aos="zoom-out">
+      <h2> Bienvenidos a <i class="bi bi-bullseye"></i><span>MiniPKI</span> <span style="font-size:10.5px; color:black">[v240510]</span> </h2>
+      <p> Modernización de la Seguridad Digital con una PKI de Código Abierto  </p>
+      <div class="d-flex">
+        <a class="btn-get-started scrollto" asp-controller="Login" asp-action="Index"> Ingresar </a>
+        <a href="https://www.youtube.com/watch?v=t0F7fe5Alwg" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Que es la PKI?</span></a>
+      </div>
+    </div>
+</section>
+
+
+
+<main id="main">
+
+<section id="team" class="team">
+  <div class="container">
+    <div class="section-header pt-3" style="background: #fcfcfc">
+       <h2>Presentación</h2>
+        <p align="justify">
+          En un mundo cada vez más digitalizado, la seguridad de la información es primordial. 
+          Una de las herramientas fundamentales para garantizar la seguridad en la transferencia 
+          y almacenamiento de datos es una Infraestructura de Clave Pública (PKI, por sus siglas 
+          en inglés). este es un proyecto de codigo abierto de una PKI, que puede
+          revolucionar la forma en que protegemos nuestros activos digitales.
+        </p>
+        <br>
+        <p align="justify">
+          La seguridad digital es un imperativo en la era moderna. Adoptar una PKI de código 
+          abierto no solo fortalece la protección de los activos digitales, sino que también 
+          fomenta la transparencia, la colaboración y la innovación en la comunidad de 
+          seguridad cibernética.
+        </p>
+        
+        <br><br>
+
+        <style>
+          .centerx {
+            border: 2px solid #d0d0d0;
+            margin: auto;
+            width: 70%;
+            padding: 10px;
+            text-align: left; 
+            font-size: 12px
+          }
+        </style>
+
+        <pre class="centerx">
+public X509Certificate2 GeneraCertificado(string subjectName, string issuerName, AsymmetricCipherKeyPair KeyPair)
+{
+    var random = new SecureRandom();
+    var certificateGenerator = new Org.BouncyCastle.X509.X509V3CertificateGenerator();
+
+    certificateGenerator.SetSerialNumber(BigInteger.ProbablePrime(120, random));
+    certificateGenerator.SetSubjectDN(new Org.BouncyCastle.Asn1.X509.X509Name(subjectName));
+    certificateGenerator.SetIssuerDN(new Org.BouncyCastle.Asn1.X509.X509Name(issuerName));
+    certificateGenerator.SetNotBefore(DateTime.UtcNow.Date);
+    certificateGenerator.SetNotAfter(DateTime.UtcNow.Date.AddYears(1));
+    certificateGenerator.SetPublicKey(KeyPair.Public);
+
+    var signatureFactory = new Asn1SignatureFactory("SHA256withRSA", KeyPair.Private);
+    var certificate = certificateGenerator.Generate(signatureFactory);
+
+    // Convertir certificado a formato X509Certificate2
+    var certificate2 = new X509Certificate2(DotNetUtilities.ToX509Certificate(certificate));
+    return certificate2;
+}          
+        </pre>
+        </blockquote>
+
+    </div>
+  </div>
+</section>
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2>Contáctenos</h2>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row gy-5 gx-lg-5">
+          <div class="col-lg-4">
+
+            <div class="info">
+              <h3>Contáctos</h3>
+              <p></p>
+
+              <div class="info-item d-flex">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h4>Ubicación:</h4>
+                  <p>Av. Floral S/N, Puno - PE</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h4>Email:</h4>
+                  <p>info@minipki.com</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-phone flex-shrink-0"></i>
+                <div>
+                  <h4>Celular:</h4>
+                  <p>+1 5589 55488 55</p>
+                </div>
+              </div><!-- End Info Item -->
+
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <form action="" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Nombres" required="">
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Correo electrónico" required="">
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto" required="">
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" rows="4" name="message" placeholder="Detalle su mensaje" required=""></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Mensaje enviado</div>
+              </div>
+              <div class="text-center"><button type="submit">Enviar mensaje</button></div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->

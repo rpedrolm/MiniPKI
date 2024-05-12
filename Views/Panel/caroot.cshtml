@@ -1,0 +1,144 @@
+@{
+    ViewData["Title"] = "CARoot";
+    ViewData["IdApp"] = 3;
+    Layout = "_BaseLogin";
+}
+
+
+<div class="hero-staticBetter" style="padding-top: 110px">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <button class="btn btn-sm btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#dlgNewCert"> <i class="fa fa-qrcode"></i> Generar certificado raiz </button>
+                
+                <table class="table table-striped mb-5" style="font-size: 14px">
+                    <tr>
+                        <th> # </th>
+                        <th class="d-none d-sm-table-cell d-xs-table-cell"> CA </th>
+                        <th> Detalles del certificado </th>
+                        <th class="d-none d-sm-table-cell d-xs-table-cell"> Proc </th>
+                        <th class="d-none d-sm-table-cell d-xs-table-cell"> Válido desde </th>
+                        <th> Válido hasta </th>
+                        <th> Opciones </th>
+                    </tr>
+                    @foreach( var row in ViewBag.Archivos ){
+                        <tr>
+                            <td class="col-md-1"> @string.Format("C{0:D6}",row.Id) </td>
+                            <!-- <td> @row.Tipo </td> -->
+                            <td class="d-none d-sm-table-cell d-xs-table-cell"> <i class="fa fa-key fw-bold"></i> </td>
+                            <td class="col-md-4"> <a href="/panel/descargar/?pid=@row.Id"> <i class="fa fa-download"></i></a> @row.Nombre </td>
+                            <td class="col-md-1 d-none d-sm-table-cell d-xs-table-cell"> @row.Pais </td>
+                            <td class="col-md-2">                                        @row.FechaIni </td>
+                            <td class="col-md-2 d-none d-sm-table-cell d-xs-table-cell"> @row.FechaFin </td>
+                            <td class="" atyle="width: auto !important">
+                                <button class="btn btn-outline-success btn-xs" data-bs-toggle="modal" data-bs-target="#dlgNewCert"> <i class="fa fa-plus"></i> </button> 
+                                <button onclick="Borrar(@row.Id)" class="btn btn-outline-danger btn-xs"> <i class="fa fa-trash"></i> </button>
+                                <button class="btn btn-outline-primary btn-xs" disabled> <i class="fa fa-edit"></i> </button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="dlgNewCert" tabindex="-1" aria-labelledby="exam" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exam">  </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/Panel/DoAddCert1" method="post" name="frm02">
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label"> Propietario </label>
+                <div class="col-sm-9">
+                    <select class="form-select" aria-label="Default select example" name="cboUser" required>
+                        <!--
+                        <option value="10" selected> RootCA 01 </option>
+                        <option value="20"> RootCA 02 </option>
+                        -->
+                        @foreach( var row in ViewBag.Usuarios ){
+                            <option value=@row.Id> @row.Usuario - @row.Empresa </option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i1" class="col-sm-3 col-form-label"> Nombres(CN) </label>
+                <div class="col-sm-9">
+                <input type="text" class="form-control" id="i1" name="edtCN" placeholder="Ejm. UNAMBA" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i2" class="col-sm-3 col-form-label"> Órgano(O) </label>
+                <div class="col-sm-9">
+                <input type="text" class="form-control" id="i2" name="edtO" placeholder="Ejm. Agente Automatizado" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i3" class="col-sm-3 col-form-label"> Pais(C) </label>
+                <div class="col-sm-9">
+                    <select class="form-select" aria-label="Default select example" name="edtC" required>
+                        <option value="PE" selected> PERU </option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i3" class="col-sm-3 col-form-label"> Región(Z) </label>
+                <div class="col-sm-9">
+                <input type="text" class="form-control" id="i3" name="edtZ" placeholder="Puno" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i4" class="col-sm-3 col-form-label"> Correo </label>
+                <div class="col-sm-9">
+                <input type="email" class="form-control" id="i4" name="email" placeholder="personal@do.com" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i5" class="col-sm-3 col-form-label"> Contraseña </label>
+                <div class="col-sm-9">
+                <input type="password" class="form-control" id="i5" name="Clave" placeholder="****" required>
+                </div>
+            </div>
+            <button class="d-none" type="submit" id="btnSnd"> Enviar </button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"> Cerrar </button>
+        <button type="button" class="btn btn-success" id="btnSend" onclick="btnSnd.click()">
+            <span class="spinner-border spinner-border-sm d-none" id="bspin" role="status" aria-hidden="true"></span>
+            <i class="fa fa-qrcode"></i> Generar certificado 
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+    frm02.addEventListener("submit", function () {
+        bspin.classList.remove('d-none');
+        btnSend.disabled = true;
+    });
+
+    function Borrar( pid )
+    {
+        var a = document.createElement("A");
+        a.href = "/panel/borrar/?pid=" + pid;
+        
+        if( confirm("Desea eliminar este registro?") )
+            a.click();
+    }
+</script>

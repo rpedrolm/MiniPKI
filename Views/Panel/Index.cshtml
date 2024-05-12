@@ -1,0 +1,181 @@
+@{
+    ViewData["Title"] = "Panel";
+    ViewData["IdApp"] = 2;
+    Layout = "_BaseLogin";
+}
+
+
+<div class="hero-staticBetter" style="padding-top: 110px">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <!--
+                <div class="ovr-build ovr-section">
+                    <h2>Build an assistant</h2>
+                    <div class="ovr-build-grid">
+                        <a href="/docs/assistants/">
+                            <div class="icon-item ">
+                                <div class="icon-item-icon red-gradient-bg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 24 24"><path d="M11 7.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM14.5 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path><path fill-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v.5h4a3 3 0 0 1 3 3V9a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V5.5a3 3 0 0 1 3-3h4V2a1 1 0 0 1 1-1ZM7 4.5h10a1 1 0 0 1 1 1V9a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V5.5a1 1 0 0 1 1-1Z" clip-rule="evenodd"></path><path d="M6 21c0-.974.551-1.95 1.632-2.722C8.71 17.508 10.252 17 12 17c1.749 0 3.29.508 4.369 1.278C17.449 19.05 18 20.026 18 21a1 1 0 1 0 2 0c0-1.788-1.016-3.311-2.469-4.35-1.455-1.038-3.414-1.65-5.53-1.65-2.118 0-4.077.611-5.532 1.65C5.016 17.69 4 19.214 4 21a1 1 0 1 0 2 0Z"></path></svg>
+                                </div>
+                                <div class="icon-item-right">
+                                    <div class="icon-item-title body-large bold">Introduction</div>
+                                    <div class="icon-item-tag">Beta</div>
+                                    <div class="icon-item-desc body-small">Learn the basics of building an assistant</div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="/docs/assistants/how-it-works"><div class="icon-item "><div class="icon-item-icon orange-gradient-bg"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M5.949 4.683A2 2 0 0 1 7.454 4h9.092a2 2 0 0 1 1.505.683l3.5 4C22.683 9.976 21.765 12 20.046 12H3.954c-1.719 0-2.637-2.024-1.505-3.317l3.5-4ZM16.546 6H7.454l-3.5 4h16.092l-3.5-4ZM3 15a1 1 0 0 1 1-1h16a1 1 0 0 1 0 2H4a1 1 0 0 1-1-1Zm2 3a1 1 0 1 0 0 2h14a1 1 0 0 0 0-2H5Z" clip-rule="evenodd"></path></svg></div><div class="icon-item-right"><div class="icon-item-title body-large bold">Assistants deep dive</div><div class="icon-item-tag">Beta</div><div class="icon-item-desc body-small">Explore how assistants work and important concepts</div></div></div></a></div></div>
+                -->
+
+                <button class="btn btn-sm btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#dlgNewCert"> <i class="fa fa-qrcode"></i> Generar nuevo certificado </button>
+                
+                <table class="table table-striped mb-5" style="font-size: 14px">
+                    <tr>
+                        <th> # </th>
+                        <th class="d-none d-sm-table-cell d-xs-table-cell"> CA </th>
+                        <th> Detalles del certificado </th>
+                        <th class="d-none d-sm-table-cell d-xs-table-cell"> Proc </th>
+                        <th class="d-none d-sm-table-cell d-xs-table-cell"> Válido desde </th>
+                        <th> Válido hasta </th>
+                        <th> Opciones </th>
+                    </tr>
+                    @foreach( var row in ViewBag.Archivos ){
+                        <tr>
+                            <td class="col-md-1"> @string.Format("C{0:D4}",row.Id) </td>
+                            <!-- <td> @row.Tipo </td> -->
+                            <td class="d-none d-sm-table-cell d-xs-table-cell"> <i class="fa fa-key fw-bold"></i>  @row.IdRoot </td>
+                            <td class="col-md-4"> <a href="/panel/descargar/?pid=@row.Id"> <i class="fa fa-download"></i></a> @row.Nombre </td>
+                            <td class="col-md-1 d-none d-sm-table-cell d-xs-table-cell"> @row.Pais </td>
+                            <td class="col-md-2">                                        @row.FechaIni </td>
+                            <td class="col-md-2 d-none d-sm-table-cell d-xs-table-cell"> @row.FechaFin </td>
+                            <td class="" atyle="width: auto !important">
+                                <button class="btn btn-outline-success btn-xs" data-bs-toggle="modal" data-bs-target="#dlgNewCert"> <i class="fa fa-plus"></i> </button> 
+                                <button onclick="Borrar(@row.Id)" class="btn btn-outline-danger btn-xs"> <i class="fa fa-trash"></i> </button> 
+                                <button class="btn btn-outline-primary btn-xs" disabled> <i class="fa fa-edit"></i> </button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- 
+Domain, Organizacion, Dep, City, Provincia, Pais
+-->
+<!--
+<link href='https://somee.com/DOKA/Client/V2/v2.css?v=Pof_k8IW3sH7ZTVjR5OXzc4TkS9cVPpPR_cmkcv2TSU' rel="stylesheet" type="text/css" />
+<link href='https://somee.com/DOKA/Client/V2/layout.css?v=u89DSyrEj_g8Y0JJ5Q4KVNSXH0MZiD1viN7k5yDIGbA' rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://somee.com/DOKA/DOCO.styles.css?v=__ZFomiGuJ9VYUUUBsCM1QNdmFRrzjfV9rsewx3Beds" />
+-->
+
+
+<!-- Modal -->
+<div class="modal fade" id="dlgNewCert" tabindex="-1" aria-labelledby="exam" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exam">  </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/Panel/DoAddCert2" method="post" name="frm01">
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label"> Root(CA) </label>
+                <div class="col-sm-9">
+                    <select class="form-select" aria-label="Default select example" name="cboRaiz" required>
+                        @foreach( var row in ViewBag.CAroots ){
+
+                            @if( ViewBag.Session.IdTipo==1 && row.IdRoot == 0 ){ 
+                                // admin ve todos los CAroots
+                                <option value="@row.Id"> @string.Format("{0:D2} - {1}",row.IdUser, row.Nombre) </option>
+
+                            // solo mostrar los certis del usuario si logea
+                            } else if( ViewBag.Session.Id == (int)row.IdUser ){
+                                <option value="@row.Id"> @row.Nombre </option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i1" class="col-sm-3 col-form-label"> Nombres(CN) </label>
+                <div class="col-sm-9">
+                <input type="text" class="form-control" id="i1" name="edtCN" placeholder="Apellidos y nombres" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i2" class="col-sm-3 col-form-label"> Órgano(O) </label>
+                <div class="col-sm-9">
+                <input type="text" class="form-control" id="i2" name="edtO" placeholder="Su institución" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i3" class="col-sm-3 col-form-label"> Pais(C) </label>
+                <div class="col-sm-9">
+                    <select class="form-select" aria-label="Default select example" name="edtC" required>
+                        <option value="PE" selected> PERU </option>
+                        <option value="BR"> BRASIL </option>
+                        <option value="BO"> BOLIVIA </option>
+                        <option value="EC"> ECUADOR </option>
+                        <option value="CO"> COLOMBIA </option>
+                        <option value="US"> EE.UU. </option>
+                        <option value="No"> None </option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i3" class="col-sm-3 col-form-label"> Región(Z) </label>
+                <div class="col-sm-9">
+                <input type="text" class="form-control" id="i3" name="edtZ" placeholder="Puno" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i4" class="col-sm-3 col-form-label"> Correo </label>
+                <div class="col-sm-9">
+                <input type="email" class="form-control" id="i4" name="email" placeholder="personal@do.com" required>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="i5" class="col-sm-3 col-form-label"> Contraseña </label>
+                <div class="col-sm-9">
+                <input type="password" class="form-control" id="i5" name="Clave" placeholder="****" required>
+                </div>
+            </div>
+            <button class="d-none" type="submit" id="btnSnd"> Enviar </button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"> Cerrar </button>
+        <button type="button" class="btn btn-success" id="btnSend" onclick="btnSnd.click()">
+            <span class="spinner-border spinner-border-sm d-none" id="bspin" role="status" aria-hidden="true"></span>
+            <i class="fa fa-qrcode"></i> Generar certificado 
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+    frm01.addEventListener("submit", function () {
+        bspin.classList.remove('d-none');
+        btnSend.disabled = true;
+    });
+
+    function Borrar( pid )
+    {
+        var a = document.createElement("A");
+        a.href = "/panel/borrac/?pid=" + pid;
+        
+        if( confirm("Desea eliminar este registro?") )
+            a.click();
+    }
+</script>

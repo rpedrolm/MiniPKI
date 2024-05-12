@@ -1,0 +1,40 @@
+@{
+    ViewData["Title"] = "Certificados y Firmas Digitales";
+    ViewData["IdApp"] = 4;
+    Layout = "_BaseLogin";
+}
+
+
+<div class="hero-staticBetter" style="padding-top: 115px">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <center>
+                    <h1>Certificados HTTPS y Firmas Digitales</h1>
+                </center>
+
+                <h2>1. Certificados Raíz:</h2>
+                <p>Los certificados raíz son certificados digitales emitidos por autoridades de certificación (CA) de confianza. Estos certificados son utilizados para firmar digitalmente otros certificados, estableciendo así la confianza en la cadena de confianza. La validez de un certificado raíz se basa en la confianza que se le otorga a la autoridad de certificación que lo emitió.</p>
+                <h2>2. Firmas Digitales:</h2>
+                <p>Las firmas digitales son un mecanismo criptográfico que permite verificar la autenticidad e integridad de un mensaje o un conjunto de datos. Una firma digital se crea mediante un algoritmo de resumen (hash) y una clave privada, y se verifica utilizando la clave pública correspondiente. Esto garantiza que el mensaje no ha sido alterado y que proviene de la entidad que afirma haberlo creado.</p>
+                <h2>3. Certificados HTTPS:</h2>
+                <p>Los certificados HTTPS son certificados digitales utilizados para proteger la comunicación en línea mediante el protocolo HTTPS (HTTP seguro). Estos certificados son emitidos por autoridades de certificación y están vinculados a un dominio específico. La presencia de un certificado HTTPS en un sitio web garantiza que la comunicación entre el navegador y el servidor está cifrada y que el sitio web es auténtico.</p>
+                <h2>4. Certificados Autofirmados:</h2>
+                <p>Los certificados autofirmados son certificados digitales en los que la entidad que los emite también es la misma que los firma. Estos certificados no son emitidos por una autoridad de certificación de confianza y, por lo tanto, no son adecuados para su uso en producción. Sin embargo, pueden ser útiles para pruebas locales o entornos de desarrollo.</p>
+                <h2>5. Certificados Autofirmados en OpenSSL:</h2>
+                <ol>
+                    <li>Instalar OpenSSL en tu sistema si aún no lo tienes.</li>
+                    <li>Generar una clave privada:</li>
+                    <pre><code>openssl genpkey -algorithm RSA -out key.pem -aes256</code></pre>
+                    <li>Generar un certificado autofirmado utilizando la clave privada:</li>
+                    <pre><code>openssl req -new -x509 -days 365 -key key.pem -out cert.pem</code></pre>
+                    <li>Configurar tu servidor web para usar el certificado y la clave privada generados.</li>
+                </ol>
+                <p>Este tutorial solo aborda los conceptos básicos. Para una comprensión más profunda y aplicaciones prácticas, se recomienda investigar cada tema con mayor detalle y seguir las mejores prácticas de seguridad en la gestión de certificados digitales.</p>
+            </div>
+        </div>
+    </div>
+
+</div>

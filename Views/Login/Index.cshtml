@@ -1,0 +1,75 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_BaseLogin";
+}
+
+<div class="container-fluid hero-staticBetter pt-5">
+
+  <div class="row mt-3">
+    <div class="col-md-3 offset-md-6 pt-5">
+    
+      <!--
+      <table class="table table-striped">
+      foreach( var row in ViewBag.Pruebas ){
+          <tr>
+            <td> row.Id </td>
+            <td> row.Estado </td>
+            <td> row.Extras </td>
+          </tr>
+      }
+      </table>
+      -->
+      <br><br>
+      <div class="card shadow mt-5 mb-5">
+        <div class="card-header">
+          <h4>Acceder</h4>
+        </div>
+        <div class="card-body">
+            @if( ViewBag.Msg != null )
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="font-size: 12px">
+                    <strong>Error:</strong> @ViewBag.Msg
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            <form action="/Login/Start" method=post id="frmLogin">
+            <div class="input-group mb-3">
+              <!-- <span class="input-group-text" id="basic-addon1"> <i class="fa fa-envelope fa-fw"></i> </span> -->
+              <span class="input-group-text" id="basic-addon1"> <i class="fa fa-user fa-fw"></i> </span>
+              <input name="user" type="text" class="form-control" placeholder="Usuario" style="font-size: 14px" required autofocus autocomplete="off">
+            </div>
+
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon2"> <i class="fa fa-key fa-fw"></i> </span>
+              <input name="pass" type="password" class="form-control" placeholder="Contraseña" style="font-size: 14px" required>
+            </div> 
+
+            <div class="pt-3 d-flex align-items-center justify-content-center">
+                <!--
+                <button type="submit" class="btn btn-primary btn-lg w-100">
+                    <i class="spinner-border spinner-border-sm d-none"></i> Iniciar sesión
+                </button>
+                -->   
+                <button class="btn btn-primary w-75" type="submit" id="btnLogin">
+                    <span class="spinner-border spinner-border-sm d-none" id="bspin" role="status" aria-hidden="true"></span>
+                    Iniciar sesión
+                </button>
+
+            </div>
+            </form>
+         </div>
+      </div>
+      <br><br><br><br><br>
+
+  </div>
+     
+
+</div>
+</div>
+
+<script>
+    frmLogin.addEventListener("submit", function () {
+        bspin.classList.remove('d-none');
+        btnLogin.disabled = true;
+    });
+</script>
