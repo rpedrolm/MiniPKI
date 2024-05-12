@@ -1,13 +1,8 @@
-//
-// dotnet add package Newtonsoft.Json
-//
-
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Session;
 
-//using MiniPki.Models;
 using LxTools.Data;
 using LxTools.Sess;
 
