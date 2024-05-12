@@ -12,7 +12,6 @@ public class PanelController : Controller
 {
     private readonly LxSQLServer dbMini;
 
-
     public PanelController()
     {
         dbMini = new LxSQLServer( "mssqlConn" );
@@ -84,8 +83,6 @@ public class PanelController : Controller
         ViewBag.Session = HttpContext.Session.Get<SessData>("tmpSess");
         if(ViewBag.Session==null) return RedirectToAction( "Index", "Home");
         //-------------------------------------------------------------------
-
-
         return View();
     }
 
