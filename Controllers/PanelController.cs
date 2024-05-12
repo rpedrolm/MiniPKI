@@ -45,18 +45,6 @@ public class PanelController : Controller
                 IdRoot = 0 
             } );
 
-        /*
-        var path1 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/bind");
-        var path2 = Path.Combine(Directory.GetCurrentDirectory(), "Repositor");
-
-        var final = Path.Combine(path2, "c001.pfx");
-
-        Console.WriteLine( "---" );
-        Console.WriteLine( path1 );
-        Console.WriteLine( path2 );
-        Console.WriteLine( final );
-        */
-
         return View();
     }
 
@@ -175,15 +163,11 @@ public class PanelController : Controller
         //-------------------------------------------------------------------------------------------
         // Rutear pfx
         //-------------------------------------------------------------------------------------------
-        // d:\DZHosts\LocalUser\minipki\www.minipki.somee.com\Repositor
-        //
         var path2 = Path.Combine(Directory.GetCurrentDirectory(), "Repositor");
         var final = Path.Combine(path2, string.Format("c{0:D4}.pfx",Id) );
 
         string Subject = string.Format( "CN={0},O={1},OU={1},L={2},C={3}", edtCN, edtO, edtZ, edtC );
-
         string pfxRoot = Path.Combine(path2, string.Format("r{0:D4}.pfx",cboRaiz) );
-        //-------------------------------------------------------------------------------------------
 
         LxTools.X509Generator.X509CertificatesX.CreateDigitalCert( Subject, final, Clave, 3, pfxRoot, "finesi++" );
 
@@ -233,8 +217,6 @@ public class PanelController : Controller
     {
         // solo actualizamos a Estado=0, 
         dbMini.Update( "Certificados", "Estado=0", $"Id={pid}" );
-
-
         return Redirect("/panel/caroot");
     }
 
@@ -242,26 +224,7 @@ public class PanelController : Controller
     {
         // solo actualizamos a Estado=0, 
         dbMini.Update( "Certificados", "Estado=0", $"Id={pid}" );
-
-
         return Redirect("/panel/index");
     }
-    
-    /*
-    public IActionResult Demo()
-    {
-        string? res = dbMini.Where("Uno=5").Find("Pruebas");
-
-        res = dbMini.Where( new{ Aactividades = 5 }    )
-                    .And  ( new{ Edad = 5, Tipo = 1 }   )
-                    .Like ( new{ Apellidos = "%Juan%" } )
-                    .Like ( "Nombres LIKE '%LAU%'" )
-                    .Find ( "Pruebas", OrderMode.ASC );
-
-        Console.WriteLine( res );
-
-        return Content( res );
-    }
-    */
 }
 
