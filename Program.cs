@@ -21,7 +21,7 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
-{   // Configure the HTTP request pipeline.
+{   
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
