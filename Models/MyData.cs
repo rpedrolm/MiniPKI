@@ -78,7 +78,7 @@ public class MyData : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {           
-        var strconn = @"Data Source=MiniPki.mssql.somee.com;Initial Catalog=MiniPki;User Id=minipki_SQLLogin_1;Password=huqgll1nqx;TrustServerCertificate=True;";
+        var strconn = @"Data Source=MiniPki.mssql.somee.com;Initial Catalog=MiniPki;User Id={};Password={};TrustServerCertificate=True;";
 
         // options.UseSqlServer(strconn);
         optionsBuilder.UseSqlServer(strconn, options =>
